@@ -49,6 +49,13 @@
 							  <li><a href="#portfolio">Portfolio</a></li>
 							  <li><a href="#features">Features</a></li>				                                                                  								  
 							  <li><a href="#contact">Contact</a></li>
+							  {% if user.is_authenticated %}
+								<li>Hai {{user.username}}</li>
+							<li><a href="accounts/logout">Logout</a></li>
+							{% else %}
+							  <li><a href="accounts/register">Register</a></li>
+							  <li><a href="accounts/login">Login</a></li>
+							{% endif %}
 						</ul>
 					</div>
 					<!-- /.Navbar-collapse -->		 
@@ -70,13 +77,13 @@
 
 					<div class="carousel-inner">
 						<div class="item active">
-							<img src="images/6.jpg" class="img-responsive" alt=""> 
+							<img src="{% static 'images/6.jpg' %}" class="img-responsive" alt="">
 						</div>
 					   <div class="item">
-							<img src="images/7.jpg" class="img-responsive" alt=""> 
+							<img src="{% static 'images/7.jpg' %}" class="img-responsive" alt="">
 					   </div> 
 					   <div class="item">
-							<img src="images/5.jpg" class="img-responsive" alt=""> 
+							<img src="{% static 'images/5.jpg' %}" class="img-responsive" alt="">
 					   </div> 
 					</div>
 					
@@ -106,7 +113,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 wow fadeInRight">
-					<img src="images/1.png" class="img-responsive" />
+					<img src="{% static 'images/1.png' %}" class="img-responsive" />
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni autem minus sint, commodi.</p>
 
                 </div><!--/.col-sm-6-->
@@ -128,7 +135,7 @@
                               <div class="panel-body">
                                   <div class="media accordion-inner">
                                         <div class="pull-left">
-                                            <img class="img-responsive" src="images/accordion1.png">
+                                            <img class="img-responsive" src="{% static 'images/accordion1.png' %}">
                                         </div>
                                         <div class="media-body">
                                              <h4>Adipisicing elit</h4>
@@ -224,116 +231,118 @@
 			<div class="col-lg-12">		
 				<ul class="portfolio-filter text-center">
 					<li><a class="btn btn-default active" href="#" data-filter="*">All Works</a></li>
-					<li><a class="btn btn-default" href="#" data-filter=".bootstrap">Creative</a></li>
-					<li><a class="btn btn-default" href="#" data-filter=".html">Photography</a></li>
-					<li><a class="btn btn-default" href="#" data-filter=".wordpress">Web Development</a></li>
+<!--					<li><a class="btn btn-default" href="#" data-filter=".bootstrap">Creative</a></li>-->
+<!--					<li><a class="btn btn-default" href="#" data-filter=".html">Photography</a></li>-->
+<!--					<li><a class="btn btn-default" href="#" data-filter=".wordpress">Web Development</a></li>-->
 				</ul><!--/#portfolio-filter-->
 
 				<div class="row">
 					<div class="portfolio-items">
+						{% for result in results %}
 						<div class="portfolio-item apps col-xs-12 col-sm-4 col-md-3">
 							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item1.png" alt="">
+								<img class="img-responsive" src={{result.img.url}} style="height:150px" alt="">
 								<div class="overlay">
 									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item1.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+										<h3><a href="#">{{result.name}}</a></h3>
+										<p>{{result.desc}}</p>
+										<a class="preview" href={{result.img.url}} rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
 									</div> 
 								</div>
 							</div>
 						</div><!--/.portfolio-item-->
+						{% endfor %}
 
-						<div class="portfolio-item joomla bootstrap col-xs-12 col-sm-4 col-md-3">
-							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item2.png" alt="">
-								<div class="overlay">
-									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-									</div> 
-								</div>
-							</div>          
-						</div><!--/.portfolio-item-->
+<!--						<div class="portfolio-item joomla bootstrap col-xs-12 col-sm-4 col-md-3">-->
+<!--							<div class="recent-work-wrap">-->
+<!--								<img class="img-responsive" src="{% static 'images/portfolio/recent/item2.png' %}" alt="">-->
+<!--								<div class="overlay">-->
+<!--									<div class="recent-work-inner">-->
+<!--										<h3><a href="#">Business theme</a></h3>-->
+<!--										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+<!--										<a class="preview" href="{% static 'images/portfolio/full/item2.png' %}" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>-->
+<!--									</div> -->
+<!--								</div>-->
+<!--							</div>          -->
+<!--						</div>&lt;!&ndash;/.portfolio-item&ndash;&gt;-->
 
-						<div class="portfolio-item bootstrap wordpress col-xs-12 col-sm-4 col-md-3">
-							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item3.png" alt="">
-								<div class="overlay">
-									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-									</div> 
-								</div>
-							</div>        
-						</div><!--/.portfolio-item-->
+<!--						<div class="portfolio-item bootstrap wordpress col-xs-12 col-sm-4 col-md-3">-->
+<!--							<div class="recent-work-wrap">-->
+<!--								<img class="img-responsive" src="{% static 'images/portfolio/recent/item3.png' %}" alt="">-->
+<!--								<div class="overlay">-->
+<!--									<div class="recent-work-inner">-->
+<!--										<h3><a href="#">Business theme</a></h3>-->
+<!--										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+<!--										<a class="preview" href="{% static 'images/portfolio/full/item3.png' %}" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>-->
+<!--									</div> -->
+<!--								</div>-->
+<!--							</div>        -->
+<!--						</div>&lt;!&ndash;/.portfolio-item&ndash;&gt;-->
 
-						<div class="portfolio-item joomla wordpress apps col-xs-12 col-sm-4 col-md-3">
-							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item4.png" alt="">
-								<div class="overlay">
-									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-									</div> 
-								</div>
-							</div>           
-						</div><!--/.portfolio-item-->
-			  
-						<div class="portfolio-item joomla html bootstrap col-xs-12 col-sm-4 col-md-3">
-							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item5.png" alt="">
-								<div class="overlay">
-									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-									</div> 
-								</div>
-							</div>      
-						</div><!--/.portfolio-item-->
+<!--						<div class="portfolio-item joomla wordpress apps col-xs-12 col-sm-4 col-md-3">-->
+<!--							<div class="recent-work-wrap">-->
+<!--								<img class="img-responsive" src="{% static 'images/portfolio/recent/item4.png' %}" alt="">-->
+<!--								<div class="overlay">-->
+<!--									<div class="recent-work-inner">-->
+<!--										<h3><a href="#">Business theme</a></h3>-->
+<!--										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+<!--										<a class="preview" href="{% static 'images/portfolio/full/item4.png' %}" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>-->
+<!--									</div> -->
+<!--								</div>-->
+<!--							</div>           -->
+<!--						</div>&lt;!&ndash;/.portfolio-item&ndash;&gt;-->
+<!--			  -->
+<!--						<div class="portfolio-item joomla html bootstrap col-xs-12 col-sm-4 col-md-3">-->
+<!--							<div class="recent-work-wrap">-->
+<!--								<img class="img-responsive" src="{% static 'images/portfolio/recent/item5.png' %}" alt="">-->
+<!--								<div class="overlay">-->
+<!--									<div class="recent-work-inner">-->
+<!--										<h3><a href="#">Business theme</a></h3>-->
+<!--										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+<!--										<a class="preview" href="{% static 'images/portfolio/full/item5.png' %}" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>-->
+<!--									</div> -->
+<!--								</div>-->
+<!--							</div>      -->
+<!--						</div>&lt;!&ndash;/.portfolio-item&ndash;&gt;-->
 
-						<div class="portfolio-item wordpress html apps col-xs-12 col-sm-4 col-md-3">
-							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item6.png" alt="">
-								<div class="overlay">
-									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-									</div> 
-								</div>
-							</div>         
-						</div><!--/.portfolio-item-->
+<!--						<div class="portfolio-item wordpress html apps col-xs-12 col-sm-4 col-md-3">-->
+<!--							<div class="recent-work-wrap">-->
+<!--								<img class="img-responsive" src="{% static 'images/portfolio/recent/item6.png' %}" alt="">-->
+<!--								<div class="overlay">-->
+<!--									<div class="recent-work-inner">-->
+<!--										<h3><a href="#">Business theme</a></h3>-->
+<!--										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+<!--										<a class="preview" href="{% static 'images/portfolio/full/item6.png' %}" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>-->
+<!--									</div> -->
+<!--								</div>-->
+<!--							</div>         -->
+<!--						</div>&lt;!&ndash;/.portfolio-item&ndash;&gt;-->
 
-						<div class="portfolio-item wordpress html col-xs-12 col-sm-4 col-md-3">
-							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item7.png" alt="">
-								<div class="overlay">
-									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-									</div> 
-								</div>
-							</div>          
-						</div><!--/.portfolio-item-->
+<!--						<div class="portfolio-item wordpress html col-xs-12 col-sm-4 col-md-3">-->
+<!--							<div class="recent-work-wrap">-->
+<!--								<img class="img-responsive" src="{% static 'images/portfolio/recent/item7.png' %}" alt="">-->
+<!--								<div class="overlay">-->
+<!--									<div class="recent-work-inner">-->
+<!--										<h3><a href="#">Business theme</a></h3>-->
+<!--										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+<!--										<a class="preview" href="{% static 'images/portfolio/full/item7.png' %}" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>-->
+<!--									</div> -->
+<!--								</div>-->
+<!--							</div>          -->
+<!--						</div>&lt;!&ndash;/.portfolio-item&ndash;&gt;-->
 
-						<div class="portfolio-item wordpress html bootstrap col-xs-12 col-sm-4 col-md-3">
-							<div class="recent-work-wrap">
-								<img class="img-responsive" src="images/portfolio/recent/item8.png" alt="">
-								<div class="overlay">
-									<div class="recent-work-inner">
-										<h3><a href="#">Business theme</a></h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-										<a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
-									</div> 
-								</div>
-							</div>          
-						</div><!--/.portfolio-item-->
+<!--						<div class="portfolio-item wordpress html bootstrap col-xs-12 col-sm-4 col-md-3">-->
+<!--							<div class="recent-work-wrap">-->
+<!--								<img class="img-responsive" src="{% static 'images/portfolio/recent/item8.png' %}" alt="">-->
+<!--								<div class="overlay">-->
+<!--									<div class="recent-work-inner">-->
+<!--										<h3><a href="#">Business theme</a></h3>-->
+<!--										<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+<!--										<a class="preview" href="{% static 'images/portfolio/full/item8.png' %}" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>-->
+<!--									</div> -->
+<!--								</div>-->
+<!--							</div>          -->
+<!--						</div>&lt;!&ndash;/.portfolio-item&ndash;&gt;-->
 					</div>
 				</div>
 			</div>
@@ -350,27 +359,26 @@
 						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
 					</div>
 				</div>
-				
+				{% for result in res %}
 				<div class="col-md-4 wow fadeInLeft">
-					<h3>Responsive</h3>
-					<img src="images/portfolio/recent/item4.png" alt="">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-					non cupidatat skateboard dolor brunch.</p>
+					<h3>{{result.name}}</h3>
+					<img src={{result.img.url}} style="width:200px;height:150px" alt="">
+					<p>{{result.desc}}</p>
 				</div>
-				
-				<div class="col-md-4 wow fadeInUp">
-					<h3>Web Design</h3>
-					<img src="images/portfolio/recent/item5.png" alt="">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-					non cupidatat skateboard dolor brunch.</p>
-				</div>
-				
-				<div class="col-md-4 wow fadeInRight">
-					<h3>Easy Customize</h3>
-					<img src="images/portfolio/recent/item6.png" alt="">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-					non cupidatat skateboard dolor brunch.</p>
-				</div>
+				{% endfor %}
+<!--				<div class="col-md-4 wow fadeInUp">-->
+<!--					<h3>Web Design</h3>-->
+<!--					<img src="{% static 'images/portfolio/recent/item5.png' %}" alt="">-->
+<!--					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut-->
+<!--					non cupidatat skateboard dolor brunch.</p>-->
+<!--				</div>-->
+<!--				-->
+<!--				<div class="col-md-4 wow fadeInRight">-->
+<!--					<h3>Easy Customize</h3>-->
+<!--					<img src="{% static 'images/portfolio/recent/item6.png' %}" alt="">-->
+<!--					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut-->
+<!--					non cupidatat skateboard dolor brunch.</p>-->
+<!--				</div>-->
 			</div>
 		</div>		
 	</section>
@@ -465,13 +473,13 @@
 	
 	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery.js"></script>
+	<script src="{% static 'js/jquery.js' %}"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/jquery.isotope.min.js"></script> 
-	<script src="js/wow.min.js"></script>
-	<script src="js/jquery.easing.min.js"></script>	
-	<script src="js/main.js"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.isotope.min.js' %}"></script>
+	<script src="{% static 'js/wow.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

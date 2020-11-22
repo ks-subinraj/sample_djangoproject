@@ -1,5 +1,7 @@
 from django.shortcuts import render
-
+from .models import work,features
 # Create your views here.
 def home(request):
-    return render(request,'index.html')
+    obj=work.objects.all()
+    obj1=features.objects.all()
+    return render(request,'index.html',{'results':obj,'res':obj1})
